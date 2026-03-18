@@ -18,23 +18,57 @@ header {
 
   padding: 1.5rem 4rem;
 
-  background: linear-gradient(
-    to bottom,
-    rgba(25, 25, 25, 0.95),
-    rgba(10, 10, 10, 0.7)
-  );
+  /* Glass effect */
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(18px) saturate(180%) contrast(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%) contrast(120%);
 
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 20px 20px;
 }
 
-/* Title */
-h1 {
+/* ===== CLICKABLE NAME BUTTON ===== */
+.name-button {
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+}
+
+/* Name container inside button */
+.name-button .name-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Main name slightly above */
+.main-name {
+  margin: 0;
+  transform: translateY(-5px);
   font-family: 'Playfair Display', serif;
   font-weight: 600;
   letter-spacing: 1px;
   color: #ffffff;
+}
+
+/* Sub-name under main name */
+.sub-name {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  color: #aaa;
+}
+
+/* Hover effect for name button */
+.name-button:hover .main-name,
+.name-button:hover .sub-name {
+  color: #ffffff;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 /* Nav */
@@ -81,8 +115,19 @@ h2 {
 /* ===== PROJECT GRID ===== */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* max 3 per row */
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
+}
+
+/* ===== CLICKABLE PROJECT LINKS ===== */
+.project-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-link .project-card {
+  cursor: pointer;
 }
 
 /* ===== PROJECT CARDS WITH DIAGONAL ROUNDED IMAGE FADE ===== */
@@ -138,9 +183,9 @@ h2 {
   background-size: cover;
   background-position: center;
 
-  border-radius: 24px; /* rounded edges */
+  border-radius: 24px;
   clip-path: inset(70% 0% 0% 70% round 24px);
-  transition: clip-path 1s ease, opacity 1s ease;
+  transition: clip-path 0.5s ease, opacity 0.5s ease;
   opacity: 0;
   z-index: 0;
 }
@@ -151,7 +196,7 @@ h2 {
 }
 
 .project-card.aimtrainer::after {
-  background-image: url('images/aimtrainer.jpg');
+  background-image: url('images/AB.png');
 }
 
 .project-card.another::after {
@@ -192,4 +237,79 @@ footer {
   section {
     padding: 4rem 2rem;
   }
+}
+
+/* ===== PROJECT SHOWCASE PAGE ===== */
+.project-showcase {
+    max-width: 1200px;
+    margin: auto;
+    padding: 6rem 2rem;
+}
+
+.project-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.project-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.project-header p {
+    font-size: 1.2rem;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+
+.project-buttons .button {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: #4f46e5;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.project-buttons .button:hover {
+    background: #3730a3;
+}
+
+.project-buttons .button.secondary {
+    background: #6b7280;
+}
+
+.project-buttons .button.secondary:hover {
+    background: #4b5563;
+}
+
+/* Screenshots */
+.screenshots {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.screenshots img {
+    width: 32%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* About section */
+.project-about {
+    background: #1a1a1a;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.project-about h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
 }

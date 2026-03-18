@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Page</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Glassy Top Bar -->
+<header>
+    <!-- Clickable Name Button -->
+    <a href="index.html" class="name-button">
+        <div class="name-container">
+            <h1 class="main-name">Gabriel Fernandes Neves</h1>
+            <h2 class="sub-name">Gabtrex</h2>
+        </div>
+    </a>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+</header>
+
+<!-- Project Showcase -->
+<section class="project-showcase">
+    <div class="project-header">
+        <h2 id="project-title">Project Title</h2>
+        <p id="project-subtitle">Short tagline or description of the project</p>
+        <div class="project-buttons">
+            <a id="play-link" href="#" class="button">Play Game</a>
+            <a id="subscribe-link" href="#" class="button secondary">Subscribe & Play Without Ads</a>
+        </div>
+    </div>
+
+    <!-- Screenshots Gallery -->
+    <div class="screenshots">
+        <img id="screenshot1" src="" alt="Screenshot 1">
+        <img id="screenshot2" src="" alt="Screenshot 2">
+        <img id="screenshot3" src="" alt="Screenshot 3">
+    </div>
+
+    <!-- About / Description -->
+    <div class="project-about">
+        <h3>About</h3>
+        <p id="project-description">Detailed project description goes here.</p>
+    </div>
+</section>
+
+<script>
+// Get project from query string
+const urlParams = new URLSearchParams(window.location.search);
+const project = urlParams.get('project');
+
+// Define project data
+const projects = {
+    bloodbound: {
+        title: "Bloodbound Knights",
+        subtitle: "A full solo-developed game released on Steam",
+        description: "Bloodbound Knights is a full solo-developed game released on Steam. Explore dungeons, battle monsters, and level up your character.",
+        playLink: "https://store.steampowered.com/app/3577770/BloodBound_Knights/",
+        subscribeLink: "#",
+        screenshots: [
+            "images/BBK1.png",
+            "images/BBK2.png",
+            "images/BBK3.png"
+        ]
+    },
+    aimbuddy: {
+        title: "Aim Buddy",
+        subtitle: "2D aim trainer for second screen",
+        description: "Aim Buddy helps you improve your aiming skills during downtime in shooters. Click fast appearing circles and track your progress over time.",
+        playLink: "#",
+        subscribeLink: "#",
+        screenshots: [
+            "images/AB1.png",
+            "images/AB2.png",
+            "images/AB3.png"
+        ]
+    }
+};
+
+// Populate content dynamically
+if (project && projects[project]) {
+    const p = projects[project];
+    document.getElementById('project-title').innerText = p.title;
+    document.getElementById('project-subtitle').innerText = p.subtitle;
+    document.getElementById('project-description').innerText = p.description;
+
+    const playLink = document.getElementById('play-link');
+    playLink.href = p.playLink;
+    playLink.target = "_blank";  // Open in new tab
+
+    const subscribeLink = document.getElementById('subscribe-link');
+    subscribeLink.href = p.subscribeLink;
+    subscribeLink.target = "_blank";  // Open in new tab
+
+    document.getElementById('screenshot1').src = p.screenshots[0];
+    document.getElementById('screenshot2').src = p.screenshots[1];
+    document.getElementById('screenshot3').src = p.screenshots[2];
+}
+</script>
+
+</body>
+</html>

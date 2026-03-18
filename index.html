@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Portfolio</title>
+    <title>Gabriel's Portfolio</title>
 
     <link rel="stylesheet" href="styles.css">
 
@@ -13,7 +13,15 @@
 <body>
 
 <header>
-    <h1>Your Name</h1>
+    <!-- Clickable Name Button -->
+    <a href="index.html" class="name-button">
+        <div class="name-container">
+            <h1 class="main-name">Gabriel Fernandes Neves</h1>
+            <h2 class="sub-name">Gabtrex</h2>
+        </div>
+    </a>
+
+    <!-- Navigation -->
     <nav>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
@@ -21,41 +29,54 @@
     </nav>
 </header>
 
+<!-- ABOUT SECTION -->
 <section id="about">
     <h2>About Me</h2>
     <p>I build high-quality interactive experiences and games.</p>
 </section>
 
+<!-- PROJECTS SECTION -->
 <section id="projects">
     <h2>Projects</h2>
 
     <div class="projects-grid">
 
-        <div class="project-card bloodbound">
-            <h3>Bloodbound Knights</h3>
-            <p>A full solo-developed game released on Steam.</p>
-        </div>
+        <!-- Bloodbound Knights Project -->
+        <a href="project.html?project=bloodbound" class="project-link">
+            <div class="project-card bloodbound">
+                <h3>Bloodbound Knights</h3>
+                <p>A full solo-developed game released on Steam.</p>
+            </div>
+        </a>
 
-        <div class="project-card aimtrainer">
-            <h3>Aim Trainer Mini Game</h3>
-            <p>A compact 2D aim trainer designed for second-screen play.</p>
-        </div>
+        <!-- Aim Buddy Project -->
+        <a href="project.html?project=aimbuddy" class="project-link">
+            <div class="project-card aimtrainer">
+                <h3>Aim Buddy</h3>
+                <p>A compact 2D aim trainer designed for second-screen play.</p>
+            </div>
+        </a>
 
-        <div class="project-card another">
-            <h3>Another Project</h3>
-            <p>Short description of your project.</p>
-        </div>
+        <!-- Another Project -->
+        <a href="project.html?project=another" class="project-link">
+            <div class="project-card another">
+                <h3>Another Project</h3>
+                <p>Short description of your project.</p>
+            </div>
+        </a>
 
     </div>
 </section>
 
+<!-- CONTACT SECTION -->
 <section id="contact">
     <h2>Contact</h2>
     <p>Email: your@email.com</p>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    <p>© 2026 Your Name</p>
+    <p>© 2026 Gabriel Fernandes Neves</p>
 </footer>
 
 </body>
