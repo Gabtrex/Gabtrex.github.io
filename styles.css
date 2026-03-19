@@ -138,6 +138,8 @@ h2 {
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6) !important;
 }
 
 .project-card::before {
@@ -175,7 +177,7 @@ h2 {
 
   border-radius: 24px;
   clip-path: inset(70% 0% 0% 70% round 24px);
-  transition: clip-path 0.25s ease, opacity 0.25s ease;
+  transition: clip-path 0.5s ease, opacity 0.5s ease;
   opacity: 0;
   z-index: 0;
 }
@@ -405,4 +407,20 @@ footer {
 
 #project-description strong {
     color: #eaeaea;
+}
+
+/* ===== SCROLL REVEAL ===== */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.scroll-reveal .project-card {
+    box-shadow: none !important;
+    transition: box-shadow 0.7s ease;
 }

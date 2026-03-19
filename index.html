@@ -31,18 +31,20 @@
 
 <!-- ABOUT SECTION -->
 <section id="about">
-    <h2>About Me</h2>
-    <p>I build high-quality interactive experiences and games.</p>
+    <h2 class="scroll-reveal">About Me</h2>
+    <p class="scroll-reveal">I'm Gabriel, an <strong>19 year old game developer</strong> who has been creating games since the age of <strong>10</strong>. I started with <strong>Scratch</strong> and progressively moved to engines such as <strong>Unreal Engine 5</strong> and <strong>Unity</strong>, building experience across multiple technologies and languages.</p>
+    <p class="scroll-reveal">In <strong>2025</strong>, I independently developed and released <strong>Bloodbound Knights on Steam</strong>, handling the <strong>full production pipeline</strong> and gaining strong experience with <strong>Unreal Engine 5</strong> and <strong>Blueprint</strong>. Prior to that, I published a <strong>mobile game on Google Play</strong> and worked on smaller projects using <strong>C#</strong>, <strong>Roblox Lua</strong>, and <strong>Godot</strong>.</p>
+    <p class="scroll-reveal">I am currently studying at <strong>ANATEN</strong>, where I continue to strengthen my <strong>C#</strong> skills and expand my engine and systems knowledge.</p>
 </section>
 
 <!-- PROJECTS SECTION -->
 <section id="projects">
-    <h2>Projects</h2>
+    <h2 class="scroll-reveal">Projects</h2>
 
     <div class="projects-grid">
 
         <!-- Bloodbound Knights Project -->
-        <a href="project.html?project=bloodbound" class="project-link">
+        <a class="project-link scroll-reveal" href="project.html?project=bloodbound">
             <div class="project-card bloodbound">
                 <h3>Bloodbound Knights</h3>
                 <p>A full solo-developed game released on Steam.</p>
@@ -50,7 +52,7 @@
         </a>
 
         <!-- Aim Buddy Project -->
-        <a href="project.html?project=aimbuddy" class="project-link">
+        <a class="project-link scroll-reveal" href="project.html?project=aimbuddy">
             <div class="project-card aimtrainer">
                 <h3>Aim Buddy</h3>
                 <p>A compact 2D aim trainer designed for second-screen play.</p>
@@ -58,13 +60,13 @@
         </a>
 
         <!-- Another Project -->
-        <a href="project.html?project=another" class="project-link">
+        <a class="project-link scroll-reveal" href="project.html?project=another">
             <div class="project-card another">
                 <h3>Another Project</h3>
                 <p>Short description of your project.</p>
             </div>
         </a>
-        
+
     </div>
 </section>
 
@@ -78,6 +80,22 @@
 <footer>
     <p>© 2026 Gabriel Fernandes Neves</p>
 </footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.scroll-reveal').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 0.1}s`;
+        observer.observe(el);
+    });
+</script>
 
 </body>
 </html>
