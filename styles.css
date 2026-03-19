@@ -219,8 +219,15 @@ h2 {
   background-image: url('images/AB/Project Image/AB.png');
 }
 
-.project-card.another::after {
-  background-image: url('images/another.jpg');
+.project-card.veilshifter::after {
+  background-image: url('images/VeilShifter/Project Image/VS.png');
+  background-position: left center;
+}
+
+.project-card.mam::after {
+  background-image: url('images/MAM/Project Image/MAM.png');
+  background-size: 135%;
+  background-repeat: no-repeat;
 }
 
 /* ===== SKILL TAGS ===== */
