@@ -20,9 +20,9 @@
         </div>
     </a>
     <nav>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
+        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'about')">About</a>
+        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'projects')">Projects</a>
+        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'contact')">Contact</a>
     </nav>
 </header>
 
@@ -90,6 +90,7 @@ const projects = {
         `,
         playLink: "https://store.steampowered.com/app/3577770/BloodBound_Knights/",
         heroImg: "images/BBK/Hero/Library Hero.png",
+        heroPosition: "center 20%",
         screenshots: ["images/BBK/Screenshots/CharacterSelection.gif", "images/BBK/Screenshots/Abilities.gif", "images/BBK/Screenshots/Shop.gif"]
     },
     aimbuddy: {
@@ -101,6 +102,7 @@ const projects = {
         `,
         playLink: "https://gabtrex.itch.io/aim-buddy",
         heroImg: "images/AB/Hero/Library Hero.png",
+        heroPosition: "center 0%",
         screenshots: ["images/AB/Screenshots/1.png", "images/AB/Screenshots/2.png", "images/AB/Screenshots/3.png"]
     }
 };
@@ -116,6 +118,7 @@ if (project && projects[project]) {
 
     const heroBg = document.getElementById('heroBg');
     heroBg.style.backgroundImage = `url('${p.heroImg}')`;
+    heroBg.style.backgroundPosition = p.heroPosition || 'center 20%';
     setTimeout(() => heroBg.classList.add('loaded'), 50);
 
     const playLink = document.getElementById('play-link');
