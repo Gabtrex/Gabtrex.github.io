@@ -162,8 +162,52 @@
 <!-- CONNECT SECTION -->
 <section id="connect">
     <h2>Connect</h2>
-    <p>Email: <a href="mailto:gabrielfneves07@gmail.com" target="_blank">gabrielfneves07@gmail.com</a></p>
-    <p><a href="https://www.linkedin.com/in/gabriel-fernandes-neves-444017276/" target="_blank">LinkedIn</a></p>
+    <div class="socials-grid">
+
+        <a class="social-btn" href="mailto:gabrielfneves07@gmail.com" target="_blank">
+            <div class="social-icon-wrap">
+                <img src="images/Connect/Email.png" alt="Email">
+            </div>
+            <span>Email</span>
+        </a>
+
+        <a class="social-btn" href="https://www.linkedin.com/in/gabriel-fernandes-neves-444017276/" target="_blank">
+            <div class="social-icon-wrap">
+                <img src="images/Connect/linkedin.png" alt="LinkedIn">
+            </div>
+            <span>LinkedIn</span>
+        </a>
+
+        <a class="social-btn" href="https://www.youtube.com/@Gabtrex" target="_blank">
+            <div class="social-icon-wrap">
+                <img src="images/Connect/youtube.png" alt="YouTube">
+            </div>
+            <span>YouTube</span>
+        </a>
+
+        <a class="social-btn" href="https://www.instagram.com/gabtrex" target="_blank">
+            <div class="social-icon-wrap">
+                <img src="images/Connect/instagram.png  " alt="Instagram">
+            </div>
+            <span>Instagram</span>
+        </a>
+
+        <a class="social-btn" href="https://www.tiktok.com/@gabtrex" target="_blank">
+            <div class="social-icon-wrap">
+                <img src="images/Connect/tiktok.png" alt="TikTok">
+            </div>
+            <span>TikTok</span>
+        </a>
+
+        <div class="social-btn social-discord" onclick="navigator.clipboard.writeText('gabtrex').then(() => { const t = this.querySelector('.discord-tooltip'); t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); })">
+            <div class="social-icon-wrap">
+                <img src="images/Connect/discord.png" alt="Discord">
+            </div>
+            <span>Discord</span>
+            <div class="discord-tooltip">Copied!</div>
+        </div>
+
+    </div>
 </section>
 
 <footer>
@@ -207,7 +251,7 @@
         observer.observe(el);
     });
 
-    // Skill filter — covers both projects and experience cards
+    // Skill filter
     document.querySelectorAll('.skill-item[data-skill]').forEach(item => {
         item.style.cursor = 'pointer';
         item.addEventListener('click', () => {
@@ -219,6 +263,7 @@
 
             const activeSkill = isActive ? null : skill;
 
+            // Filter project/experience cards
             document.querySelectorAll('.project-link[data-skills]').forEach(project => {
                 project.style.transitionDelay = '0s';
                 if (!activeSkill) {
@@ -231,6 +276,22 @@
                     } else {
                         project.classList.remove('project-highlighted');
                         project.classList.add('project-dimmed');
+                    }
+                }
+            });
+
+            // Filter social buttons
+            document.querySelectorAll('.social-btn[data-socials]').forEach(btn => {
+                if (!activeSkill) {
+                    btn.classList.remove('social-dimmed', 'social-active');
+                } else {
+                    const btnSocials = btn.dataset.socials.split(' ');
+                    if (btnSocials.includes(activeSkill)) {
+                        btn.classList.remove('social-dimmed');
+                        btn.classList.add('social-active');
+                    } else {
+                        btn.classList.remove('social-active');
+                        btn.classList.add('social-dimmed');
                     }
                 }
             });

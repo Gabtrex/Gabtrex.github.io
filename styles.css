@@ -232,7 +232,6 @@ h2 {
 
 .project-card.playmanity::after {
   background-image: url('images/Playmanity/Experience Image/Pm.png');
-  background-position: left center;
 }
 
 /* ===== SKILL TAGS ===== */
@@ -769,6 +768,119 @@ footer {
     color: rgba(255, 255, 255, 1);
 }
 
+/* ===== CONNECT / SOCIALS ===== */
+.socials-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+
+.social-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 0.15s ease;
+}
+
+.social-btn .social-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+}
+
+.social-btn img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+}
+
+.social-btn span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.social-btn:hover .social-icon-wrap {
+    transform: translateY(-5px) scale(1.06);
+    background: rgba(255, 255, 255, 0.11);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.social-btn:hover img {
+    opacity: 1;
+}
+
+.social-btn:hover span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Social filter states */
+.social-btn.social-dimmed {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.social-btn.social-active .social-icon-wrap {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.75);
+    transform: translateY(-5px) scale(1.06);
+}
+
+.social-btn.social-active img {
+    opacity: 1;
+}
+
+.social-btn.social-active span {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Discord copy button */
+.social-discord {
+    position: relative;
+}
+
+.discord-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.discord-tooltip.show {
+    opacity: 1;
+}
+
 /* ===== ABOUT LINKS ===== */
 #about a {
     color: #eaeaea;
@@ -779,20 +891,6 @@ footer {
 }
 
 #about a:hover {
-    color: #fff;
-    border-bottom-color: #fff;
-}
-
-/* ===== CONNECT LINKS ===== */
-#connect a {
-    color: #eaeaea;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding-bottom: 2px;
-    transition: color 0.3s, border-color 0.3s;
-}
-
-#connect a:hover {
     color: #fff;
     border-bottom-color: #fff;
 }
