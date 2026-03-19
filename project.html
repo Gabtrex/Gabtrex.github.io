@@ -13,15 +13,12 @@
 
 <!-- Glassy Top Bar -->
 <header>
-    <!-- Clickable Name Button -->
     <a href="index.html" class="name-button">
         <div class="name-container">
             <h1 class="main-name">Gabriel Fernandes Neves</h1>
             <h2 class="sub-name">Gabtrex</h2>
         </div>
     </a>
-
-    <!-- Navigation -->
     <nav>
         <a href="#about">About</a>
         <a href="#projects">Projects</a>
@@ -29,17 +26,23 @@
     </nav>
 </header>
 
-<!-- Project Showcase -->
-<section class="project-showcase">
-    <div class="project-header">
-        <h2 id="project-title">Project Title</h2>
-        <p id="project-subtitle">Short tagline or description of the project</p>
-        <div class="project-buttons">
+<!-- Hero Image -->
+<div class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h2 id="project-title">Project Title</h2>
+            <p id="project-subtitle">Short tagline or description of the project</p>
+        </div>
+        <div class="hero-actions">
             <a id="play-link" href="#" class="button">Play Game</a>
-            <a id="subscribe-link" href="#" class="button secondary">Subscribe & Play Without Ads</a>
         </div>
     </div>
+</div>
 
+<!-- Project Showcase -->
+<section class="project-showcase">
     <!-- Screenshots Gallery -->
     <div class="screenshots">
         <img id="screenshot1" src="" alt="Screenshot 1">
@@ -49,62 +52,72 @@
 
     <!-- About / Description -->
     <div class="project-about">
-        <h3>About</h3>
+        <h1>About</h1>
         <p id="project-description">Detailed project description goes here.</p>
     </div>
 </section>
 
 <script>
-// Get project from query string
 const urlParams = new URLSearchParams(window.location.search);
 const project = urlParams.get('project');
 
-// Define project data
 const projects = {
     bloodbound: {
         title: "Bloodbound Knights",
-        subtitle: "A full solo-developed game released on Steam",
-        description: "Bloodbound Knights is a full solo-developed game released on Steam. Explore dungeons, battle monsters, and level up your character.",
+        subtitle: "BloodBound Knights is a fast-paced roguelike shoot 'em up where you battle through procedurally generated levels, unleash powerful spells, and upgrade your gear. Choose your class, master unique abilities, level up, customize your playstyle, and become unstoppable.",
+        description: `
+            <p>BloodBound Knights is an intense rogue-like shoot 'em up where you take on the role of a powerful soldier. Unlock unique spells and upgrade your abilities in the shop to save yourself.</p>
+
+            <h3><u>Key Features</u></h3>
+            <ul>
+                <li><strong>Choose Your Character</strong> : Pick from a diverse cast of classes, each with their own unique magical or physical abilities. Whether you wield fire, ice, lightning, arcane energy or you just like to smash enemies, every character offers a different playstyle.</li>
+                <li><strong>Fast-Paced Combat</strong> : Engage in action-packed shoot 'em up combat. Dodge enemy attacks while unleashing powerful spells in dynamic, intense battles.</li>
+                <li><strong>Level Up & Progress</strong> : Gain experience, level up your character, and unlock stronger spells and abilities.</li>
+                <li><strong>Unique Spells & Abilities</strong> : Master spells and techniques that can be upgraded for devastating effects. Level up to unlock new powers and enhance your combat strategy.</li>
+                <li><strong>Rogue-like Gameplay</strong> : Experience procedurally generated levels with new challenges every time you play. No two runs are the same !</li>
+                <li><strong>Shop System</strong> : Gain gold by slaying enemies, defeating bosses and level upping, and buy powerful upgrades and buffs for your character.</li>
+            </ul>
+
+            <h3><u>Gameplay Highlights</u></h3>
+            <ul>
+                <li>Unlock new spells as you progress</li>
+                <li>Cast active abilities and automatic spells</li>
+                <li>Face endless hordes and powerful bosses</li>
+                <li>Procedurally generated levels every run</li>
+                <li>Level up and grow stronger each adventure</li>
+                <li>Buy upgrades to enhance your character</li>
+            </ul>
+        `,
         playLink: "https://store.steampowered.com/app/3577770/BloodBound_Knights/",
-        subscribeLink: "#",
-        screenshots: [
-            "images/BBK1.png",
-            "images/BBK2.png",
-            "images/BBK3.png"
-        ]
+        heroImg: "images/BBK/Hero/Library Hero.png",
+        screenshots: ["images/BBK/Screenshots/CharacterSelection.gif", "images/BBK/Screenshots/Abilities.gif", "images/BBK/Screenshots/Shop.gif"]
     },
     aimbuddy: {
         title: "Aim Buddy",
         subtitle: "2D aim trainer for second screen",
-        description: "Aim Buddy helps you improve your aiming skills during downtime in shooters. Click fast appearing circles and track your progress over time.",
+        description: "<p>Aim Buddy helps you improve your aiming skills during downtime in shooters. Click fast appearing circles and track your progress over time.</p>",
         playLink: "#",
-        subscribeLink: "#",
-        screenshots: [
-            "images/AB1.png",
-            "images/AB2.png",
-            "images/AB3.png"
-        ]
+        heroImg: "images/AB1.png",
+        screenshots: ["images/AB1.png", "images/AB2.png", "images/AB3.png"]
     }
 };
 
-// Populate content dynamically
 if (project && projects[project]) {
     const p = projects[project];
 
-    // Set the page title dynamically
     document.title = p.title + " | Gabriel's Portfolio";
 
     document.getElementById('project-title').innerText = p.title;
     document.getElementById('project-subtitle').innerText = p.subtitle;
-    document.getElementById('project-description').innerText = p.description;
+    document.getElementById('project-description').innerHTML = p.description;
+
+    const heroBg = document.getElementById('heroBg');
+    heroBg.style.backgroundImage = `url('${p.heroImg}')`;
+    setTimeout(() => heroBg.classList.add('loaded'), 50);
 
     const playLink = document.getElementById('play-link');
     playLink.href = p.playLink;
-    playLink.target = "_blank";  // Open in new tab
-
-    const subscribeLink = document.getElementById('subscribe-link');
-    subscribeLink.href = p.subscribeLink;
-    subscribeLink.target = "_blank";  // Open in new tab
+    playLink.target = "_blank";
 
     document.getElementById('screenshot1').src = p.screenshots[0];
     document.getElementById('screenshot2').src = p.screenshots[1];

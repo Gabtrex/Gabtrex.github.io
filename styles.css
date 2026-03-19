@@ -18,7 +18,6 @@ header {
 
   padding: 1.5rem 4rem;
 
-  /* Glass effect */
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(18px) saturate(180%) contrast(120%);
   -webkit-backdrop-filter: blur(18px) saturate(180%) contrast(120%);
@@ -37,14 +36,12 @@ header {
   padding: 0;
 }
 
-/* Name container inside button */
 .name-button .name-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-/* Main name slightly above */
 .main-name {
   margin: 0;
   transform: translateY(-5px);
@@ -54,7 +51,6 @@ header {
   color: #ffffff;
 }
 
-/* Sub-name under main name */
 .sub-name {
   margin: 0;
   font-family: 'Inter', sans-serif;
@@ -64,14 +60,13 @@ header {
   color: #aaa;
 }
 
-/* Hover effect for name button */
 .name-button:hover .main-name,
 .name-button:hover .sub-name {
   color: #ffffff;
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
-/* Nav */
+/* ===== NAV ===== */
 nav a {
   margin-left: 2rem;
   text-decoration: none;
@@ -130,7 +125,7 @@ h2 {
   cursor: pointer;
 }
 
-/* ===== PROJECT CARDS WITH DIAGONAL ROUNDED IMAGE FADE ===== */
+/* ===== PROJECT CARDS ===== */
 .project-card {
   position: relative;
   padding: 3rem;
@@ -145,7 +140,6 @@ h2 {
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* Overlay for text readability */
 .project-card::before {
   content: "";
   position: absolute;
@@ -156,25 +150,21 @@ h2 {
   z-index: 1;
 }
 
-/* Hover overlay slightly lighter */
 .project-card:hover::before {
   background: rgba(0,0,0,0.2);
 }
 
-/* Text stays on top */
 .project-card h3,
 .project-card p {
   position: relative;
   z-index: 2;
 }
 
-/* Hover: lift card */
 .project-card:hover {
   transform: translateY(-12px) scale(1.03);
   box-shadow: 0 25px 70px rgba(0,0,0,0.9);
 }
 
-/* ===== PSEUDO-ELEMENT FOR DIAGONAL IMAGE FADE ===== */
 .project-card::after {
   content: "";
   position: absolute;
@@ -185,25 +175,23 @@ h2 {
 
   border-radius: 24px;
   clip-path: inset(70% 0% 0% 70% round 24px);
-  transition: clip-path 0.5s ease, opacity 0.5s ease;
+  transition: clip-path 0.25s ease, opacity 0.25s ease;
   opacity: 0;
   z-index: 0;
 }
 
-/* SPECIFIC IMAGES FOR EACH PROJECT */
 .project-card.bloodbound::after {
-  background-image: url('images/BBK.png');
+  background-image: url('images/BBK/Project Image/BBK.png');
 }
 
 .project-card.aimtrainer::after {
-  background-image: url('images/AB.png');
+  background-image: url('images/AB/Project Image/AB.png');
 }
 
 .project-card.another::after {
   background-image: url('images/another.jpg');
 }
 
-/* ON HOVER: FADE IN DIAGONAL IMAGE */
 .project-card:hover::after {
   clip-path: inset(0% 0% 0% 0% round 24px);
   opacity: 1;
@@ -244,22 +232,6 @@ footer {
     max-width: 1200px;
     margin: auto;
     padding: 6rem 2rem;
-}
-
-.project-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.project-header h2 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.project-header p {
-    font-size: 1.2rem;
-    color: #ccc;
-    margin-bottom: 1.5rem;
 }
 
 .project-buttons .button {
@@ -308,8 +280,129 @@ footer {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.project-about h3 {
+/* ===== HERO ===== */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 20%;
+    transform: scale(1.05);
+    transition: transform 8s ease-out;
+}
+.hero-bg.loaded { transform: scale(1); }
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 35%, transparent 45%, rgba(0,0,0,0.92) 85%, #111111 100%),
+        linear-gradient(to right, rgba(0,0,0,0.55) 0%, transparent 55%);
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0 4rem 2.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.hero-text { flex: 1; }
+
+.hero-text #project-title {
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 0.5rem 0;
+    text-align: left;
+}
+
+.hero-text #project-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+    max-width: 460px;
+    text-align: left;
+}
+
+.hero-actions {
+    flex-shrink: 0;
+    padding-bottom: 4px;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 0.5s 0.45s forwards;
+}
+
+.hero-actions .button {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 26px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    background: #fff;
+    color: #000;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.hero-actions .button:hover {
+    background: rgba(255,255,255,0.88);
+    transform: translateY(-2px);
+}
+
+.hero-text > * {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: heroIn 0.5s forwards;
+}
+.hero-text #project-title    { animation-delay: 0.2s; }
+.hero-text #project-subtitle { animation-delay: 0.35s; }
+
+@keyframes heroIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PROJECT DESCRIPTION CONTENT ===== */
+#project-description h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    margin: 1.5rem 0 0.5rem;
+    color: #fff;
+}
+
+#project-description h4:first-child {
     margin-top: 0;
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+}
+
+#project-description p {
+    color: #ccc;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+}
+
+#project-description ul {
+    padding-left: 1.2rem;
+    margin: 0 0 1rem;
+    color: #ccc;
+    line-height: 1.8;
+}
+
+#project-description ul li {
+    margin-bottom: 0.4rem;
+}
+
+#project-description strong {
+    color: #eaeaea;
 }
