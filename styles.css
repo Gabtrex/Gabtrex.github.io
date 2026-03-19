@@ -232,6 +232,7 @@ h2 {
 
 .project-card.playmanity::after {
   background-image: url('images/Playmanity/Experience Image/Pm.png');
+  background-position: left center;
 }
 
 /* ===== SKILL TAGS ===== */
