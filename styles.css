@@ -144,7 +144,7 @@ h2 {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(0, 0, 0, 0.70);
   border-radius: 24px;
   transition: background 0.4s ease;
   z-index: 1;
@@ -155,9 +155,25 @@ h2 {
 }
 
 .project-card h3,
-.project-card p {
+.project-card p,
+.project-card .skill-tags {
   position: relative;
   z-index: 2;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.project-card h3,
+.project-card p,
+.project-card .skill-tags {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover h3,
+.project-card:hover p,
+.project-card:hover .skill-tags {
+  opacity: 0;
+  transform: translateY(6px);
 }
 
 .project-card:hover {
@@ -188,6 +204,106 @@ h2 {
 
 .project-card.another::after {
   background-image: url('images/another.jpg');
+}
+
+/* ===== SKILL TAGS ===== */
+.project-card .skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.project-card .skill-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.project-link:hover .skill-tag {
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ===== SKILLS SECTION ===== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 1.8rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.skill-item span {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.skill-item:hover span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.skill-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.15),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.3),
+        0 8px 24px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+
+.skill-icon img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+}
+
+.skill-item:hover .skill-icon {
+    transform: translateY(-5px) scale(1.06);
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.22),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.3),
+        0 16px 36px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.skill-item:hover .skill-icon img {
+    opacity: 1;
 }
 
 /* ===== FOOTER ===== */
@@ -430,7 +546,7 @@ footer {
 .main-hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('images/MainPageHero/Hero.png'); /* swap to your preferred hero image */
+    background-image: url('images/MainPageHero/Hero.png');
     background-size: cover;
     background-position: center 75%;
     transform: scale(1.06);
@@ -604,8 +720,8 @@ footer {
     }
 }
 
-/* ===== CONTACT LINKS ===== */
-#contact a {
+/* ===== CONNECT LINKS ===== */
+#connect a {
     color: #eaeaea;
     text-decoration: none;
     border-bottom: 1px solid rgba(255,255,255,0.2);
@@ -613,7 +729,7 @@ footer {
     transition: color 0.3s, border-color 0.3s;
 }
 
-#contact a:hover {
+#connect a:hover {
     color: #fff;
     border-bottom-color: #fff;
 }
