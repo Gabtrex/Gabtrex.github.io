@@ -68,120 +68,8 @@
 <!-- SKILLS SECTION -->
 <section id="skills">
     <h2 class="scroll-reveal">Skills</h2>
-    <div class="skills-grid">
-
-        <div class="skill-item scroll-reveal" data-skill="ue5">
-            <div class="skill-icon">
-                <img src="images/Skills/UE.png" alt="Unreal Engine 5">
-            </div>
-            <span>Unreal Engine 5</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="blueprint">
-            <div class="skill-icon">
-                <img src="images/Skills/BP.png" alt="Blueprint">
-            </div>
-            <span>Blueprint</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="unity">
-            <div class="skill-icon">
-                <img src="images/Skills/Unity.png" alt="Unity">
-            </div>
-            <span>Unity</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="csharp">
-            <div class="skill-icon">
-                <img src="images/Skills/CSharp.png" alt="C#">
-            </div>
-            <span>C#</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="godot">
-            <div class="skill-icon">
-                <img src="images/Skills/Godot.png" alt="Godot">
-            </div>
-            <span>Godot</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="robloxstudio">
-            <div class="skill-icon">
-                <img src="images/Skills/RobloxStudio.png" alt="Roblox Studio">
-            </div>
-            <span>Roblox Studio</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="lua">
-            <div class="skill-icon">
-                <img src="images/Skills/Lua.png" alt="Lua">
-            </div>
-            <span>Roblox Lua</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="python">
-            <div class="skill-icon">
-                <img src="images/Skills/Python.png" alt="Python">
-            </div>
-            <span>Python</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="git">
-            <div class="skill-icon">
-                <img src="images/Skills/Git.png" alt="Git">
-            </div>
-            <span>Git</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="photoshop">
-            <div class="skill-icon">
-                <img src="images/Skills/PS.png" alt="Photoshop">
-            </div>
-            <span>Photoshop</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="premiere">
-            <div class="skill-icon">
-                <img src="images/Skills/PR.png" alt="Premiere Pro">
-            </div>
-            <span>Premiere Pro</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="illustrator">
-            <div class="skill-icon">
-                <img src="images/Skills/AI.png" alt="Illustrator">
-            </div>
-            <span>Illustrator</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="blender">
-            <div class="skill-icon">
-                <img src="images/Skills/Blender.png" alt="Blender">
-            </div>
-            <span>Blender</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="gamejam">
-            <div class="skill-icon">
-                <img src="images/Skills/GJ.png" alt="Game Jam">
-            </div>
-            <span>Game Jam</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="community">
-            <div class="skill-icon">
-                <img src="images/Skills/CM.png" alt="Community Management">
-            </div>
-            <span>Community Management</span>
-        </div>
-
-        <div class="skill-item scroll-reveal" data-skill="eventorg">
-            <div class="skill-icon">
-                <img src="images/Skills/Event Organisator.png" alt="Event Organisation">
-            </div>
-            <span>Event Organisation</span>
-        </div>
-
+    <div class="skills-grid" id="skills-grid">
+        <!-- Populated by skills.js -->
     </div>
 </section>
 
@@ -282,7 +170,23 @@
     <p>© 2026 Gabriel Fernandes Neves</p>
 </footer>
 
+<script src="skills.js"></script>
 <script>
+    // Render skills grid from skills.js
+    const skillsGrid = document.getElementById('skills-grid');
+    Object.entries(allSkills).forEach(([key, skill]) => {
+        const div = document.createElement('div');
+        div.className = 'skill-item scroll-reveal';
+        div.dataset.skill = key;
+        div.innerHTML = `
+            <div class="skill-icon">
+                <img src="${skill.img}" alt="${skill.label}">
+            </div>
+            <span>${skill.label}</span>
+        `;
+        skillsGrid.appendChild(div);
+    });
+
     // Hero background zoom-out
     window.addEventListener('load', () => {
         document.getElementById('mainHeroBg').classList.add('loaded');
