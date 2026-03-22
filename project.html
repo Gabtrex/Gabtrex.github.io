@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gabriel's Portfolio</title>
+    <title>Gabriel's Portfolio — Project</title>
+
+    <!-- SEO (overridden dynamically by JS below for each project) -->
+    <meta name="description" content="A project by Gabriel Fernandes Neves (Gabtrex), solo game developer.">
+    <meta name="author" content="Gabriel Fernandes Neves">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gabtrex.github.io/project.html">
+    <meta property="og:title" content="Gabriel's Portfolio — Project">
+    <meta property="og:description" content="A project by Gabriel Fernandes Neves (Gabtrex), solo game developer.">
+    <meta property="og:image" content="https://gabtrex.github.io/images/FavIcon/Gabtrex.png">
+    <meta property="og:site_name" content="Gabtrex Portfolio">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Gabriel's Portfolio — Project">
+    <meta name="twitter:description" content="A project by Gabriel Fernandes Neves (Gabtrex), solo game developer.">
+    <meta name="twitter:image" content="https://gabtrex.github.io/images/FavIcon/Gabtrex.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/FavIcon/Gabtrex.png"/>
@@ -62,6 +80,19 @@
 
     if (p) {
         document.title = p.title + " | Gabriel's Portfolio";
+
+        // Update meta tags dynamically
+        const pageUrl   = 'https://gabtrex.github.io/project.html?project=' + key;
+        const heroImg   = 'https://gabtrex.github.io/' + p.heroImg;
+        const desc      = p.cardSubtitle || p.subtitle || '';
+        document.querySelector('meta[name="description"]').setAttribute('content', desc);
+        document.querySelector('meta[property="og:title"]').setAttribute('content', p.title + ' | Gabtrex Portfolio');
+        document.querySelector('meta[property="og:description"]').setAttribute('content', desc);
+        document.querySelector('meta[property="og:url"]').setAttribute('content', pageUrl);
+        document.querySelector('meta[property="og:image"]').setAttribute('content', heroImg);
+        document.querySelector('meta[name="twitter:title"]').setAttribute('content', p.title + ' | Gabtrex Portfolio');
+        document.querySelector('meta[name="twitter:description"]').setAttribute('content', desc);
+        document.querySelector('meta[name="twitter:image"]').setAttribute('content', heroImg);
 
         document.getElementById('project-title').innerText    = p.title;
         document.getElementById('project-subtitle').innerText = p.subtitle;

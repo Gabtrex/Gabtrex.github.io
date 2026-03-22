@@ -137,7 +137,7 @@ const projects = {
         date: "Nov 2025 · Internal Game Jam",
         isGame: true,
         cardSubtitle: "A Cluedo-style mystery built solo in 48 hours.",
-        subtitle: "Participated in my first Global Game Jam with the theme on the track, working in a five-person team as the sole developer to create a game within 48 hours.",
+        subtitle: "Participated in my first Game Jam with the theme 'on the track', working in a five-person team as the sole developer to create a game within 48 hours.",
         description: `
             <p>Between mystery and the smell of gasoline, welcome to Monaco. You are a driver and must stay focused on the road, but at the last minute, Yukio, one of the drivers, was found dead by the organizer... A tragedy blending high-speed thrills with intense puzzles, discover a Cluedo-style mystery set around the race! So get on the track and solve the Murder in Monaco!</p>
             <p>Global Game Jam 2026, 48h | Theme : On the Track</p>
