@@ -259,6 +259,22 @@ h2 {
   color: rgba(255, 255, 255, 0.95);
 }
 
+/* ===== SKILL FILTER HINT ===== */
+.skills-filter-hint {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+  margin: -2.8rem 0 2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+
 /* ===== SKILLS SECTION ===== */
 .skills-grid {
   display: grid;
