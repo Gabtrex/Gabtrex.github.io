@@ -1,5 +1,8 @@
 // ── Custom cursor ────────────────────────────────────────
 (function() {
+    // Skip on touch devices (phones / tablets)
+    if (!window.matchMedia('(pointer: fine)').matches) return;
+
     var cursorDot  = document.createElement('div');
     var cursorRing = document.createElement('div');
     cursorDot.className  = 'cursor-dot';
