@@ -39,7 +39,7 @@ header {
 .name-button {
   display: inline-block;
   text-decoration: none;
-  cursor: pointer;
+  cursor: none;
   position: relative;
   padding: 0;
 }
@@ -124,7 +124,7 @@ h2 {
   transition: opacity 0.15s ease, transform 0.4s ease;
 }
 
-.project-link .project-card { cursor: pointer; }
+.project-link .project-card { cursor: none; }
 
 /* ===== PROJECT CARDS ===== */
 .project-card {
@@ -706,7 +706,7 @@ footer {
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
-  cursor: pointer;
+  cursor: none;
   user-select: none;
   transition: opacity 0.15s ease;
 }
@@ -802,4 +802,63 @@ footer {
 #about a:hover {
   color: #fff;
   border-bottom-color: #fff;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+*, *::before, *::after { cursor: none !important; }
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              height 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color 0.4s ease,
+              background 0.4s ease,
+              opacity 0.3s ease;
+}
+
+.cursor-ring.hovering {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cursor-dot.hovering {
+  width: 6px;
+  height: 6px;
+}
+
+.cursor-ring.clicking {
+  width: 26px;
+  height: 26px;
+  border-color: rgba(255, 255, 255, 0.8);
+}
+
+.cursor-dot.clicking {
+  width: 8px;
+  height: 8px;
 }

@@ -10,21 +10,7 @@
 </head>
 <body>
 
-<header>
-    <a href="index.html" class="name-button">
-        <div class="name-container">
-            <h1 class="main-name">Gabriel Fernandes Neves</h1>
-            <h2 class="sub-name">Gabtrex</h2>
-        </div>
-    </a>
-    <nav>
-        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'about')">About</a>
-        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'skills')">Skills</a>
-        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'projects')">Projects</a>
-        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'experience')">Experience</a>
-        <a href="index.html" onclick="sessionStorage.setItem('scrollTo', 'connect')">Connect</a>
-    </nav>
-</header>
+<header></header>
 
 <!-- Hero -->
 <div class="hero">
@@ -59,6 +45,8 @@
 
 <script src="skills.js"></script>
 <script src="data.js"></script>
+<script src="header.js"></script>
+<script src="cursor.js"></script>
 <script>
     const key = new URLSearchParams(window.location.search).get('experience');
     const e   = experiences[key];

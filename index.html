@@ -19,21 +19,7 @@
 
 <body>
 
-<header>
-    <a href="#" class="name-button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">
-        <div class="name-container">
-            <h1 class="main-name">Gabriel Fernandes Neves</h1>
-            <h2 class="sub-name">Gabtrex</h2>
-        </div>
-    </a>
-    <nav>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
-        <a href="#connect">Connect</a>
-    </nav>
-</header>
+<header></header>
 
 <!-- ===== MAIN HERO ===== -->
 <div class="main-hero">
@@ -136,6 +122,8 @@
 
 <script src="skills.js"></script>
 <script src="data.js"></script>
+<script src="header.js"></script>
+<script src="cursor.js"></script>
 <script>
 
     // ── Skills grid ──────────────────────────────────────────
@@ -183,13 +171,13 @@
         return a;
     }
 
-    // ── Render projects (sorted by date, most recent first) ──
+    // ── Render projects ──────────────────────────────────────
     const projectsGrid = document.getElementById('projects-grid');
     sortedEntries(projects).forEach(function(entry) {
         projectsGrid.appendChild(buildCard(entry[0], entry[1], 'project'));
     });
 
-    // ── Render experiences (sorted by date, most recent first)
+    // ── Render experiences ───────────────────────────────────
     const experienceGrid = document.getElementById('experience-grid');
     sortedEntries(experiences).forEach(function(entry) {
         experienceGrid.appendChild(buildCard(entry[0], entry[1], 'experience'));
@@ -217,7 +205,7 @@
 
     // ── Skill filter ─────────────────────────────────────────
     document.querySelectorAll('.skill-item[data-skill]').forEach(function(item) {
-        item.style.cursor = 'pointer';
+        item.style.cursor = 'none';
         item.addEventListener('click', function() {
             const skill = item.dataset.skill;
             const isActive = item.classList.contains('skill-active');
