@@ -1,15 +1,11 @@
 // ============================================================
 //  game-loader.js
-//  Shows a Play overlay, then loads the game folder directly
-//  into the iframe when clicked. No zips, no service workers.
-//
-//  Usage: initGameEmbed(config)
 // ============================================================
 
 (function(global) {
 
     global.initGameEmbed = function(config) {
-        var gamePath      = config.gamePath;      // e.g. "games/mam/"
+        var gamePath      = config.gamePath;
         var iframe        = config.iframe;
         var wrapper       = config.wrapper;
         var loadingEl     = config.loadingEl;
@@ -18,10 +14,46 @@
         var errorTextEl   = config.errorTextEl;
         var fullscreenBtn = config.fullscreenBtn;
 
-        // Ensure path ends with /index.html
         var gameUrl = gamePath.replace(/\/?$/, '/') + 'index.html';
 
-        // ── Play overlay ─────────────────────────────────────────
+        let gameWidth = 0;
+        let gameHeight = 0;
+
+        // ── ICONS ───────────────────────────────────────────────
+        const expandIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"/>
+            <polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>`;
+
+        const shrinkIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 14 10 14 10 20"/>
+            <polyline points="20 10 14 10 14 4"/>
+            <line x1="14" y1="10" x2="21" y2="3"/>
+            <line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>`;
+
+        // ── SCALE FUNCTION ──────────────────────────────────────
+        function applyGameScale() {
+            if (!gameWidth || !gameHeight) return;
+
+            const rect = wrapper.getBoundingClientRect();
+
+            const scale = Math.min(
+                rect.width / gameWidth,
+                rect.height / gameHeight
+            );
+
+            iframe.style.transform =
+                'translate(-50%, -50%) scale(' + scale + ')';
+        }
+
+        // ── Play overlay ────────────────────────────────────────
         var playOverlay = document.createElement('div');
         playOverlay.style.cssText = [
             'position:absolute', 'inset:0', 'display:flex',
@@ -41,35 +73,56 @@
             'cursor:auto', 'backdrop-filter:blur(8px)',
             'transition:background 0.2s,border-color 0.2s'
         ].join(';');
+
         playBtn.innerHTML =
             '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">' +
             '<polygon points="5 3 19 12 5 21 5 3"/></svg><span>Play in Browser</span>';
-        playBtn.addEventListener('mouseenter', function() {
-            playBtn.style.background  = 'rgba(255,255,255,0.22)';
-            playBtn.style.borderColor = 'rgba(255,255,255,0.6)';
-        });
-        playBtn.addEventListener('mouseleave', function() {
-            playBtn.style.background  = 'rgba(255,255,255,0.12)';
-            playBtn.style.borderColor = 'rgba(255,255,255,0.3)';
-        });
+
         playOverlay.appendChild(playBtn);
         wrapper.insertBefore(playOverlay, wrapper.firstChild);
         loadingEl.style.display = 'none';
 
-        // ── Fullscreen ───────────────────────────────────────────
+        // ── Fullscreen ──────────────────────────────────────────
         if (config.allowFullscreen && fullscreenBtn) {
             fullscreenBtn.style.display = 'flex';
+            fullscreenBtn.innerHTML = expandIcon;
+
             fullscreenBtn.addEventListener('click', function() {
-                var t = wrapper;
-                if (t.requestFullscreen)            t.requestFullscreen();
-                else if (t.webkitRequestFullscreen) t.webkitRequestFullscreen();
-                else if (t.mozRequestFullScreen)    t.mozRequestFullScreen();
+
+                const isFullscreen =
+                    document.fullscreenElement ||
+                    document.webkitFullscreenElement ||
+                    document.mozFullScreenElement;
+
+                if (isFullscreen) {
+                    if (document.exitFullscreen)            document.exitFullscreen();
+                    else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                    else if (document.mozCancelFullScreen)  document.mozCancelFullScreen();
+                } else {
+                    var t = wrapper;
+                    if (t.requestFullscreen)            t.requestFullscreen();
+                    else if (t.webkitRequestFullscreen) t.webkitRequestFullscreen();
+                    else if (t.mozRequestFullScreen)    t.mozRequestFullScreen();
+                }
             });
+
+            // ── Sync icon with state ─────────────────────────────
+            document.addEventListener('fullscreenchange', function() {
+                const isFullscreen = !!document.fullscreenElement;
+
+                fullscreenBtn.innerHTML = isFullscreen ? shrinkIcon : expandIcon;
+
+                setTimeout(applyGameScale, 100);
+            });
+
         } else if (fullscreenBtn) {
             fullscreenBtn.style.display = 'none';
         }
 
-        // ── Play click ───────────────────────────────────────────
+        // ── Resize ──────────────────────────────────────────────
+        window.addEventListener('resize', applyGameScale);
+
+        // ── Play click ──────────────────────────────────────────
         playBtn.addEventListener('click', function() {
             playOverlay.style.display = 'none';
             loadingEl.style.display   = 'flex';
@@ -78,43 +131,46 @@
             iframe.src = gameUrl;
 
             iframe.addEventListener('load', function onLoad() {
-            if (!iframe.src || iframe.src === 'about:blank') return;
-            iframe.removeEventListener('load', onLoad);
+                if (!iframe.src || iframe.src === 'about:blank') return;
+                iframe.removeEventListener('load', onLoad);
 
-            try {
-                const doc = iframe.contentDocument || iframe.contentWindow.document;
-                const canvas = doc.querySelector('canvas');
+                try {
+                    const doc = iframe.contentDocument || iframe.contentWindow.document;
+                    const canvas = doc.querySelector('canvas');
 
-                if (canvas) {
-                    // Wait a bit in case Unity resizes after init
-                    setTimeout(function() {
-                        const width  = canvas.width;
-                        const height = canvas.height;
+                    if (canvas) {
+                        let attempts = 0;
 
-                        if (width && height) {
-                            // Apply real resolution
-                            iframe.style.width  = width + 'px';
-                            iframe.style.height = height + 'px';
+                        const interval = setInterval(function() {
+                            const width  = canvas.width;
+                            const height = canvas.height;
 
-                            // Compute scale to fit wrapper
-                            const wrapperRect = wrapper.getBoundingClientRect();
-                            const scale = Math.min(
-                                wrapperRect.width / width,
-                                wrapperRect.height / height
-                            );
+                            if (width && height) {
 
-                            iframe.style.transform =
-                                'translate(-50%, -50%) scale(' + scale + ')';
-                        }
-                    }, 500);
+                                gameWidth  = width;
+                                gameHeight = height;
+
+                                iframe.style.width  = width + 'px';
+                                iframe.style.height = height + 'px';
+
+                                wrapper.style.aspectRatio = width + ' / ' + height;
+
+                                applyGameScale();
+
+                                clearInterval(interval);
+                            }
+
+                            if (++attempts > 15) clearInterval(interval);
+                        }, 200);
+                    }
+
+                } catch (e) {
+                    console.warn('Could not access iframe content (cross-origin?)', e);
                 }
-            } catch (e) {
-                console.warn('Could not access iframe content (cross-origin?)', e);
-            }
 
-            loadingEl.style.display = 'none';
-            iframe.style.opacity    = '1';
-        });
+                loadingEl.style.display = 'none';
+                iframe.style.opacity    = '1';
+            });
 
             iframe.addEventListener('error', function() {
                 loadingEl.style.display = 'none';
