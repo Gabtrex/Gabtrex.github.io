@@ -1,9 +1,9 @@
 const cacheName = "Gabtrex-Aim Buddy-1.0";
 const contentToCache = [
-    "Build/New folder.loader.js",
-    "Build/New folder.framework.js.br",
-    "Build/New folder.data.br",
-    "Build/New folder.wasm.br",
+    "Build/Aim Buddy.loader.js",
+    "Build/Aim Buddy.framework.js",
+    "Build/Aim Buddy.data",
+    "Build/Aim Buddy.wasm",
     "TemplateData/style.css"
 
 ];

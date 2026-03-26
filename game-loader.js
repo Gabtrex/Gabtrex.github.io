@@ -78,11 +78,43 @@
             iframe.src = gameUrl;
 
             iframe.addEventListener('load', function onLoad() {
-                if (!iframe.src || iframe.src === 'about:blank') return;
-                iframe.removeEventListener('load', onLoad);
-                loadingEl.style.display = 'none';
-                iframe.style.opacity    = '1';
-            });
+            if (!iframe.src || iframe.src === 'about:blank') return;
+            iframe.removeEventListener('load', onLoad);
+
+            try {
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+                const canvas = doc.querySelector('canvas');
+
+                if (canvas) {
+                    // Wait a bit in case Unity resizes after init
+                    setTimeout(function() {
+                        const width  = canvas.width;
+                        const height = canvas.height;
+
+                        if (width && height) {
+                            // Apply real resolution
+                            iframe.style.width  = width + 'px';
+                            iframe.style.height = height + 'px';
+
+                            // Compute scale to fit wrapper
+                            const wrapperRect = wrapper.getBoundingClientRect();
+                            const scale = Math.min(
+                                wrapperRect.width / width,
+                                wrapperRect.height / height
+                            );
+
+                            iframe.style.transform =
+                                'translate(-50%, -50%) scale(' + scale + ')';
+                        }
+                    }, 500);
+                }
+            } catch (e) {
+                console.warn('Could not access iframe content (cross-origin?)', e);
+            }
+
+            loadingEl.style.display = 'none';
+            iframe.style.opacity    = '1';
+        });
 
             iframe.addEventListener('error', function() {
                 loadingEl.style.display = 'none';
