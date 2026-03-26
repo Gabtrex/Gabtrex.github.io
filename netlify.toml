@@ -1,4 +1,4 @@
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "frame-src https://itch.io https://*.itch.io 'self'; child-src https://itch.io https://*.itch.io 'self';"
+    Content-Security-Policy = "frame-src https://itch.io https://*.itch.io https://uploads.itch.zone https://*.itch.zone 'self'; child-src https://itch.io https://*.itch.io https://uploads.itch.zone https://*.itch.zone 'self';"
