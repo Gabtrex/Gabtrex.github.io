@@ -157,11 +157,20 @@
             iframe.src = p.embedUrl;
 
             // Fullscreen button
-            document.getElementById('game-fullscreen-btn').addEventListener('click', function() {
-                if (iframe.requestFullscreen)            iframe.requestFullscreen();
-                else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-                else if (iframe.mozRequestFullScreen)    iframe.mozRequestFullScreen();
-            });
+            const fullscreenBtn = document.getElementById('game-fullscreen-btn');
+
+            if (p.allowFullscreen) {
+                fullscreenBtn.style.display = 'flex';
+
+                fullscreenBtn.addEventListener('click', function() {
+                    if (iframe.requestFullscreen)            iframe.requestFullscreen();
+                    else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+                    else if (iframe.mozRequestFullScreen)    iframe.mozRequestFullScreen();
+                });
+
+            } else {
+                fullscreenBtn.style.display = 'none';
+            }
         }
     }
 

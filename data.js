@@ -170,6 +170,7 @@ const projects = {
     //     playLink: "https://...",
     //     embedUrl: "https://itch.io/embed-upload/...",  // optional — shows a playable iframe on the project page
     //                                                    // omit or set to "" to hide the section entirely
+    //     allowFullscreen: true,                         // allows full screen to the playable embed, can omit if fullscreen's not wanted
     //     heroImg: "images/Project Files/Example/Hero/hero.png",
     //     heroPosition: "center 20%",
     //     cardImg: "images/Project Files/Example/Project Image/card.png",
