@@ -28,6 +28,7 @@
 
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <script src="game-loader.js"></script>
 </head>
 <body>
 
@@ -69,11 +70,32 @@
         <div class="skills-grid" id="project-skills-grid"></div>
     </div>
 
-    <!-- Play in Browser embed (only shown if embedUrl is set in data.js) -->
+    <!-- Play in Browser embed (only shown if gamePath is set in data.js) -->
     <div id="play-in-browser" style="display:none; margin-top: 4rem;">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 1.5rem; color: #fff;">Play in Browser</h2>
         <div class="game-embed-wrapper">
-            <iframe id="game-iframe" src="" allowfullscreen frameborder="0" scrolling="no" allow="autoplay; fullscreen *; gamepad; gyroscope; accelerometer; cross-origin-isolated"></iframe>
+            <div id="game-loading" style="
+                position: absolute; inset: 0; display: flex; flex-direction: column;
+                align-items: center; justify-content: center; gap: 1rem;
+                background: #000; color: rgba(255,255,255,0.6);
+                font-family: 'Inter', sans-serif; font-size: 0.85rem; letter-spacing: 0.08em;
+                text-transform: uppercase; z-index: 2;">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation: spin 1s linear infinite;">
+                    <circle cx="16" cy="16" r="13" stroke="rgba(255,255,255,0.15)" stroke-width="3"/>
+                    <path d="M16 3a13 13 0 0 1 13 13" stroke="rgba(255,255,255,0.7)" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <span id="game-loading-text">Loading game…</span>
+            </div>
+            <div id="game-error" style="
+                display: none; position: absolute; inset: 0; align-items: center;
+                justify-content: center; background: #000; color: rgba(255,100,100,0.8);
+                font-family: 'Inter', sans-serif; font-size: 0.82rem; text-align: center;
+                padding: 2rem; z-index: 2;">
+                <span id="game-error-text">Failed to load game.</span>
+            </div>
+            <iframe id="game-iframe" src="" allowfullscreen frameborder="0" scrolling="no"
+                style="opacity:0; transition: opacity 0.4s ease;"
+                allow="autoplay; fullscreen *; gamepad; gyroscope; accelerometer; cross-origin-isolated; clipboard-write; clipboard-read; web-share"></iframe>
             <button class="game-fullscreen-btn" id="game-fullscreen-btn" title="Fullscreen">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
@@ -81,6 +103,7 @@
                 </svg>
             </button>
         </div>
+        <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
     </div>
 
 </section>
@@ -147,30 +170,43 @@
             document.getElementById('project-skills-section').style.display = 'none';
         }
 
-        // Play in Browser embed
-        if (p.embedUrl) {
-            const embedSection = document.getElementById('play-in-browser');
-            const iframe       = document.getElementById('game-iframe');
-            const browserBtn   = document.getElementById('play-browser-btn');
+        // ── Play in Browser ──────────────────────────────────────
+        if (p.gamePath) {
+            const embedSection  = document.getElementById('play-in-browser');
+            const iframe        = document.getElementById('game-iframe');
+            const browserBtn    = document.getElementById('play-browser-btn');
+            const loadingEl     = document.getElementById('game-loading');
+            const loadingText   = document.getElementById('game-loading-text');
+            const errorEl       = document.getElementById('game-error');
+            const errorText     = document.getElementById('game-error-text');
+            const fullscreenBtn = document.getElementById('game-fullscreen-btn');
+            const wrapper       = document.querySelector('.game-embed-wrapper');
+
             embedSection.style.display = 'block';
             browserBtn.style.display   = 'inline-flex';
-            iframe.src = p.embedUrl;
 
-            // Fullscreen button
-            const fullscreenBtn = document.getElementById('game-fullscreen-btn');
-
-            if (p.allowFullscreen) {
-                fullscreenBtn.style.display = 'flex';
-
-                fullscreenBtn.addEventListener('click', function() {
-                    if (iframe.requestFullscreen)            iframe.requestFullscreen();
-                    else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-                    else if (iframe.mozRequestFullScreen)    iframe.mozRequestFullScreen();
+            // Lazy-init: set up the embed only when the section scrolls into view
+            let gameInitialised = false;
+            const gameObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !gameInitialised) {
+                        gameInitialised = true;
+                        gameObserver.disconnect();
+                        initGameEmbed({
+                            gamePath:        p.gamePath,
+                            iframe:          iframe,
+                            wrapper:         wrapper,
+                            loadingEl:       loadingEl,
+                            loadingText:     loadingText,
+                            errorEl:         errorEl,
+                            errorTextEl:     errorText,
+                            allowFullscreen: p.allowFullscreen || false,
+                            fullscreenBtn:   fullscreenBtn,
+                        });
+                    }
                 });
-
-            } else {
-                fullscreenBtn.style.display = 'none';
-            }
+            }, { threshold: 0.1 });
+            gameObserver.observe(embedSection);
         }
     }
 
@@ -183,6 +219,38 @@
             target.scrollIntoView({ behavior: 'smooth' });
         }
     });
+
+    // ── Hide custom cursor over the game embed ───────────────────
+    // The iframe captures mouse events once the game is focused,
+    // so the custom cursor dot/ring gets stuck at the border.
+    // We hide both cursor elements and restore the real cursor
+    // on the wrapper while the mouse is inside, then undo it on leave.
+    (function() {
+        const wrapper     = document.querySelector('.game-embed-wrapper');
+        const cursorDot   = document.querySelector('.cursor-dot');
+        const cursorRing  = document.querySelector('.cursor-ring');
+        if (!wrapper) return;
+
+        wrapper.addEventListener('mouseenter', function() {
+            if (cursorDot)  cursorDot.style.opacity  = '0';
+            if (cursorRing) cursorRing.style.opacity  = '0';
+            wrapper.style.cursor = 'auto';
+            // Also force auto on every child so the CSS `cursor: none !important`
+            // rule from styles.css doesn't win inside the wrapper
+            wrapper.querySelectorAll('*').forEach(function(el) {
+                el.style.setProperty('cursor', 'auto', 'important');
+            });
+        });
+
+        wrapper.addEventListener('mouseleave', function() {
+            if (cursorDot)  cursorDot.style.opacity  = '';
+            if (cursorRing) cursorRing.style.opacity  = '';
+            wrapper.style.cursor = '';
+            wrapper.querySelectorAll('*').forEach(function(el) {
+                el.style.removeProperty('cursor');
+            });
+        });
+    })();
 </script>
 
 </body>
