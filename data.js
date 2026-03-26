@@ -73,6 +73,7 @@ const projects = {
             <p>Every successful hit grants XP, letting you level up and unlock cosmetic skins over time. It's a lightweight way to stay engaged, improve your aim, and build long-term progression while waiting to jump back into the action.</p>
         `,
         playLink: "https://gabtrex.itch.io/aim-buddy",
+        embedUrl: "https://itch.io/embed-upload/16360335?color=413f00",
         heroImg: "images/Project Files/AB/Hero/Library Hero.png",
         heroPosition: "center 0%",
         cardImg: "images/Project Files/AB/Project Image/AB.png",
@@ -104,7 +105,7 @@ const projects = {
             "images/Project Files/Portfolio/Screenshots/2.gif",
             "images/Project Files/Portfolio/Screenshots/3.gif"
         ],
-        skills: ["html", "css", "javascript", "git", "photoshop"]
+        skills: ["html", "css", "javascript", "git", "photoshop"],
     },
 
     veilshifter: {
@@ -120,6 +121,7 @@ const projects = {
             <p>Global Game Jam 2026, 48h | Theme : Mask</p>
         `,
         playLink: "https://gabtrex.itch.io/veil-shifter",
+        embedUrl: "https://itch.io/embed-upload/16356014?color=141414",
         heroImg: "images/Project Files/VeilShifter/Hero/Hero.png",
         heroPosition: "center 0%",
         cardImg: "images/Project Files/VeilShifter/Project Image/VS.png",
@@ -143,6 +145,7 @@ const projects = {
             <p>Global Game Jam 2026, 48h | Theme : On the Track</p>
         `,
         playLink: "https://gabtrex.itch.io/meurtre-monaco",
+        embedUrl: "https://itch.io/embed-upload/15566829?color=a65b5b",
         heroImg: "images/Project Files/MAM/Hero/MAM.png",
         heroPosition: "center 15%",
         cardImg: "images/Project Files/MAM/Project Image/MAM.png",
@@ -165,6 +168,8 @@ const projects = {
     //     subtitle: "Longer description shown in the hero on the detail page.",
     //     description: `<p>Full description here.</p>`,
     //     playLink: "https://...",
+    //     embedUrl: "https://itch.io/embed-upload/...",  // optional — shows a playable iframe on the project page
+    //                                                    // omit or set to "" to hide the section entirely
     //     heroImg: "images/Project Files/Example/Hero/hero.png",
     //     heroPosition: "center 20%",
     //     cardImg: "images/Project Files/Example/Project Image/card.png",

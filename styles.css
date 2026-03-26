@@ -1111,3 +1111,58 @@ footer {
   width: 8px;
   height: 8px;
 }
+/* ── Play in Browser embed ─────────────────────────────── */
+.game-embed-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #000;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.game-embed-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.game-fullscreen-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: none;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    backdrop-filter: blur(6px);
+}
+
+.game-fullscreen-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    transform: scale(1.08);
+}
+
+/* Secondary (outline) button variant */
+.button-secondary {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.button-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.6);
+    color: #fff;
+}
