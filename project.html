@@ -182,6 +182,11 @@
             const fullscreenBtn = document.getElementById('game-fullscreen-btn');
             const wrapper       = document.querySelector('.game-embed-wrapper');
 
+            // Derive engine from the skills array in data.js
+            const engine = (p.skills || []).includes('godot') ? 'godot'
+                         : (p.skills || []).includes('unity') ? 'unity'
+                         : '';
+
             embedSection.style.display = 'block';
             browserBtn.style.display   = 'inline-flex';
 
@@ -202,6 +207,7 @@
                             errorTextEl:     errorText,
                             allowFullscreen: p.allowFullscreen || false,
                             fullscreenBtn:   fullscreenBtn,
+                            engine:          engine,  // ← 'godot' | 'unity' | ''
                         });
                     }
                 });
