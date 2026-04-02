@@ -12,6 +12,7 @@ const allSkills = {
     javascript:   { label: "JavaScript",           img: "images/Skills/js.png" },
     webgl:        { label: "WebGL",                img: "images/Skills/webgl.png" },
     git:          { label: "Git",                  img: "images/Skills/Git.png" },
+    plasticscm:   { label: "Plastic SCM",           img: "images/Skills/PlasticSCM.png" },
     photoshop:    { label: "Photoshop",            img: "images/Skills/PS.png" },
     premiere:     { label: "Premiere Pro",         img: "images/Skills/PR.png" },
     illustrator:  { label: "Illustrator",          img: "images/Skills/AI.png" },
