@@ -237,7 +237,7 @@ const experiences = {
         websiteLink: "https://store.steampowered.com/app/4002300/Goblin_Mode/",
         heroImg: "images/Experience Files/idlevalleygames/Hero/Hero.png",
         heroPosition: "center 100%",
-        cardImg: "images/Experience Files/idlevalleygames/Card/Card.jpeg",
+        cardImg: "images/Experience Files/idlevalleygames/Card/Card.png",
         cardImgPosition: "center",
         skills: ["community", "eventorg", "photoshop", "premiere"]
     },
